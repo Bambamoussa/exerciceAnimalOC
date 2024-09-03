@@ -59,11 +59,11 @@ fun CreateAnimalScreen(
   val snackbarHostState = remember { SnackbarHostState() }
 
   //TODO: à compléter
-  val name = rememberSaveable { mutableStateOf("") }
-  val breed = rememberSaveable { mutableStateOf(Breed.entries[0]) }
-  val age = rememberSaveable { mutableStateOf("") }
-  val weight = rememberSaveable { mutableStateOf("") }
-  val height = rememberSaveable { mutableStateOf("") }
+  val name = rememberSaveable { mutableStateOf(animal?.name ?: "") }
+  val breed = rememberSaveable { mutableStateOf(animal?.breed?:Breed.entries[0]) }
+  val age = rememberSaveable { mutableStateOf(animal?.age ?: "") }
+  val weight = rememberSaveable { mutableStateOf(animal?.weight ?: "") }
+  val height = rememberSaveable { mutableStateOf(animal?.height ?: "") }
 
   Scaffold(
     modifier = modifier,
@@ -91,7 +91,7 @@ fun CreateAnimalScreen(
     floatingActionButton = {
       ExtendedFloatingActionButton(
         onClick = {
-          if (verifyAndCreateAnimal(animal, name.value, breed.value, age.value, weight.value, height.value, snackbarHostState, scope, context)) {
+          if (verifyAndCreateAnimal(animal, name.value, breed.value, age.value.toString(), weight.value.toString(), height.value.toString(), snackbarHostState, scope, context)) {
             onSaveClick()
           }
         }
@@ -108,11 +108,11 @@ fun CreateAnimalScreen(
       onNameChanged = { name.value = it },
       breed = breed.value,
       onBreedChanged = { breed.value = it },
-      age = age.value,
+      age = age.value.toString(),
       onAgeChanged = { age.value = it },
-      weight = weight.value,
+      weight = weight.value.toString(),
       onWeightChanged = { weight.value = it },
-      height = height.value,
+      height = height.value.toString(),
       onHeightChanged = { height.value = it }
     )
   }
